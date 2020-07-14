@@ -1,0 +1,79 @@
+{% load static %}
+<!-- HEADER DESKTOP-->
+<header class="header-desktop">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="header-wrap">
+                <form class="form-header" action="{% url 'search' %}" method="get">
+                    <input class="au-input au-input--xl" type="text"
+                           name="keywords" placeholder="Пошук пацієнтів ..."/>
+                    <button class="au-btn--submit" type="submit">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                </form>
+                <div class="header-button">
+                    <div class="account-wrap">
+                        <div class="account-item clearfix js-item-menu">
+                            <div class="image">
+                                {% if user.userprofile.profile_picture %}
+                                    <img src="{{ user.userprofile.profile_picture.url|default:"/static/images/default.jpg" }}"
+                                         alt="{{ user.username }}"/>
+                                {% else %}
+                                    <img src="{% static 'images/default.jpg' %}" alt="{{ user.username }}"/>
+                                {% endif %}
+                            </div>
+                            <div class="content">
+                                <a class="js-acc-btn" href="#">
+                                    {{ user.first_name|default:'No' }}
+                                    {{ user.last_name|default:'Name' }}
+                                </a>
+                            </div>
+                            <div class="account-dropdown js-dropdown">
+                                <div class="info clearfix">
+                                    <div class="image">
+                                        <a href="#">
+                                            {% if user.userprofile.profile_picture %}
+                                                <img src="{{ user.userprofile.profile_picture.url|default:"/static/images/default.jpg" }}"
+                                                     alt="{{ user.username }}"/>
+                                            {% else %}
+                                                <img src="{% static 'images/default.jpg' %}" alt="{{ user.username }}"/>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="content">
+                                        <h5 class="name">
+                                            <a href="#">
+                                                {{ user.first_name|default:'No' }}
+                                                {{ user.last_name|default:'Name' }}
+                                            </a>
+                                        </h5>
+                                        <span class="email">{{ user.email }}</span>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="{% url 'profile' user.username %}">
+                                            <i class="zmdi zmdi-account"></i> Профіль</a>
+                                    </div>
+{#                                    <div class="account-dropdown__item">#}
+{#                                        <a href="#">#}
+{#                                            <i class="zmdi zmdi-settings"></i>Настройки</a>#}
+{#                                    </div>#}
+                                </div>
+                                <div class="account-dropdown__footer">
+                                    <a href="javascript:{document.getElementById('logout').submit()}">
+                                        <i class="zmdi zmdi-power"></i>Вихід</a>
+                                    <form action="{% url 'logout' %}" method="post" id="logout">
+                                        {% csrf_token %}
+                                        <input type="hidden">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- HEADER DESKTOP-->

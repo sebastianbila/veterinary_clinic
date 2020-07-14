@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %} Профіль {% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        {% include 'partials/_header_mobile.html' %}
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        {% include 'partials/_dashboard_sidebar.html' %}
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+
+            <!-- HEADER DESKTOP-->
+            {% include 'partials/_header_desktop.html' %}
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="container-fluid">
+
+                    <!-- Alerts -->
+                    {% include 'partials/_alerts.html' %}
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong class="card-title mb-3">Профіль</strong>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mx-auto d-block">
+                                        <form action="{% url 'update_image' %}" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+
+                                            {% if user.userprofile.profile_picture %}
+                                                <img class="rounded-circle mx-auto d-block image"
+                                                     style="width: 150px; height: 150px; object-fit: cover"
+                                                     src="{{ user.userprofile.profile_picture.url|default:"/static/images/default.jpg" }}"
+                                                     alt="{{ user.username }}" onclick="onImageClick()"
+                                                     id="profile-image">
+                                            {% else %}
+                                                <img class="rounded-circle mx-auto d-block image"
+                                                     style="width: 150px; height: 150px; object-fit: cover"
+                                                     src="{% static 'images/default.jpg' %}"
+                                                     alt="{{ user.username }}" onclick="onImageClick()"
+                                                     id="profile-image">
+                                            {% endif %}
+
+
+                                            <h5 class="text-sm-center mt-2 mb-1">
+                                                {{ user.first_name|default:'No' }}
+                                                {{ user.last_name|default:'Name' }}
+                                            </h5>
+                                            <div class="text-sm-center">@{{ user.username }}</div>
+                                            <div class="input-group mt-4" style="display: none">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input"
+                                                           accept=".jpg,.jpeg,.png"
+                                                           id="selected-image" onchange="onFileSelected(event)" name="selected-file">
+                                                    <label class="custom-file-label" for="selected-image">Choose image</label>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-2">
+                                                <button type="submit" class="btn btn-primary btn-sm my-auto" id="btn-upload-image"
+                                                        style="display: none">
+                                                    <i class="fa fa-dot-circle-o"></i> Оновити зображення профілю
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <div class="text-center mt-4">
+                                            <a href="{% url 'password_change' %}">
+                                                <button type="submit" class="btn btn-warning btn-sm my-auto ">
+                                                    <i class="fa fa-dot-circle-o"></i> Змінити пароль
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Профіль</strong>
+                                </div>
+                                <div class="card-body card-block">
+                                    <form action="{% url 'profile' user.username %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="first_name" class=" form-control-label">Імя</label>
+                                            <input type="text" id="first_name" placeholder="Введіть ваше ім'я"
+                                                   class="form-control" name="first_name" value="{{ user.first_name }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="last_name" class=" form-control-label">Прiзвище</label>
+                                            <input type="text" id="last_name" placeholder="Введіть вашу фамілію" class="form-control"
+                                                   name="last_name" value="{{ user.last_name }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username" class=" form-control-label">Нікнейм</label>
+                                            <input type="text" id="username" placeholder="Введіть ваш нікнейм" class="form-control"
+                                                   name="username" value="{{ user.username }}" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class=" form-control-label">Емайл</label>
+                                            <input type="email" id="email" placeholder="Введіть ваш емайл" class="form-control"
+                                                   name="email" value="{{ user.email }}" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-dot-circle-o"></i> Оновити профіль
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- END MAIN CONTENT-->
+        </div> <!-- END PAGE CONTAINER-->
+    </div>
+{% endblock %}

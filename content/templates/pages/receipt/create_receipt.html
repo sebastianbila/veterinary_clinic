@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        {% include 'partials/_header_mobile.html' %}
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        {% include 'partials/_dashboard_sidebar.html' %}
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+
+            <!-- HEADER DESKTOP-->
+            {% include 'partials/_header_desktop.html' %}
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <!-- Alerts -->
+                        {% include 'partials/_alerts.html' %}
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Формування чеку</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <div class="row form-group align-items-center justify-content-center">
+                                            <div class="col-lg-12 mb-3">
+                                                <p>Виберіть пацієнта:</p>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <select name="select" id="selectedPatient" class="form-control" required>
+                                                    {% if patients %}
+                                                        {% for patient in patients %}
+                                                            <option value="{{ patient.id }}" label="{{ patient.nickname }}"
+                                                            data-owner="{{ patient.owner }}"
+                                                            ></option>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group align-items-center justify-content-center">
+                                            <div class="col-lg-12 mb-3">
+                                                <p>Виберіть послугу:</p>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <select name="select" id="serviceSelect" data-name="23" class="form-control">
+                                                    {% if services %}
+                                                        {% for service in services %}
+                                                            <option value="{{ service.id }}"
+                                                                    label="{{ service.title }}"
+                                                                    data-price="{{ service.price }}">
+                                                            </option>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <button onclick="newElement()" class="btn btn-primary float-right">
+                                                    Додати
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card" id="cardInvoice">
+                                    <div class="card-header">
+                                        <strong>Чек</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <p>Пацієнт:
+                                                    <b><span class="text-info" id="patient"></span></b>
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-4 text-right">
+                                                <p>Дата:
+                                                    <b><span class="text-info" id="date">22.01.223</span></b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <br>
+                                         <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>Власник:
+                                                    <b><span class="text-info" id="owner"></span></b>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="row form-group align-items-center justify-content-center mt-3">
+                                            <div class="col-lg-12">
+                                                <ul class="list-group" id="listServices">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center h-100">
+                                            <div class="col-lg-6 mt-3 align-self-center my-auto">
+                                                <p>Підсумкова ціна за всі послуги
+                                                    <b><span class="text-info" id="endPrice">$0</span></b>
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-6 text-right align-self-center" onclick="saveReceipt(event)">
+                                                <button class="btn btn-primary" id="btnSave">Завантажити чек</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+{% endblock %}
+

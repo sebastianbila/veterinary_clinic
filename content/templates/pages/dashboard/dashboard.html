@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        {% include 'partials/_header_mobile.html' %}
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        {% include 'partials/_dashboard_sidebar.html' %}
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+
+            <!-- HEADER DESKTOP-->
+            {% include 'partials/_header_desktop.html' %}
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="overview-wrap">
+                                    <h2 class="title-1">Головна</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t-25">
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="overview-item overview-item--c1">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-shopping-cart"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>{{ patient_count }}</h2>
+                                                <span>пацієнт</span>
+                                            </div>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="overview-item overview-item--c2">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-shopping-cart"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>{{ service_count }}</h2>
+                                                <span>наданi послуги </span>
+                                            </div>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="overview-item overview-item--c3">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-calendar-note"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>{{ recipe_count }}</h2>
+                                                <span>виписанi рецепти</span>
+                                            </div>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+                                <div class="overview-item overview-item--c4">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>{{ balance }}</h2>
+                                                <span>на балансi</span>
+                                            </div>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT-->
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+
+{% endblock %}

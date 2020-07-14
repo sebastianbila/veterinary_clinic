@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        {% include 'partials/_header_mobile.html' %}
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        {% include 'partials/_dashboard_sidebar.html' %}
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+
+            <!-- HEADER DESKTOP-->
+            {% include 'partials/_header_desktop.html' %}
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <!-- Alerts -->
+                        {% include 'partials/_alerts.html' %}
+
+                        <form action="{% url 'category_service' %}"
+                              onsubmit="onSelectService(event)"
+                              class="form-horizontal form-service">
+                            {% csrf_token %}
+                            <div class="card-body card-block">
+                                <div class="row">
+                                    <div class="col col-md-1 my-auto">
+                                        <p>Сервіси</p>
+                                    </div>
+                                    <div class="col-md-10 ">
+                                        <select name="clinic-services" id="select" class="form-control">
+                                            <option selected value="-1">Всі</option>
+                                            {% if clinic_service %}
+                                                {% if services %}
+                                                    {% for service in services %}
+                                                        {% if service == clinic_service %}
+                                                            <option selected value="{{ service.id }}">{{ service.title }}</option>
+                                                        {% else %}
+                                                            <option value="{{ service.id }}">{{ service.title }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% else %}
+                                                {% if services %}
+                                                    {% for service in services %}
+                                                        <option value="{{ service.id }}">{{ service.title }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1 my-auto">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-dot-circle-o"></i> Пошук
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="row m-t-30">
+                            <div class="col-md-12">
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3">
+                                        <thead>
+                                        <tr>
+                                            <th>назва</th>
+                                            <th>ціна</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="table-body">
+                                        {% if category_services %}
+                                            {% for service in category_services %}
+                                                <tr>
+                                                    <td><a class="service" href="{% url 'edit_service' service.id %}"
+                                                    >{{ service.title }}</a></td>
+                                                    <td>${{ service.price }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+
+{% endblock %}
+

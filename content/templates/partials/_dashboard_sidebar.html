@@ -1,0 +1,47 @@
+{% load static %}
+
+<!-- MENU SIDEBAR-->
+<aside class="menu-sidebar d-none d-lg-block">
+    <div class="logo">
+        <a href="{% url 'dashboard' %}">
+            <h2 class="">Ветеринарна клiнiка</h2>
+        </a>
+    </div>
+    <div class="menu-sidebar__content js-scrollbar1">
+        <nav class="navbar-sidebar">
+            <ul class="list-unstyled navbar__list">
+
+                <li {% if '/' == request.path %} class="active" {% endif %}>
+                    <a href="{% url 'dashboard' %}"><i class="fa fa-tachometer"></i>Головна</a>
+                </li>
+
+                <li {% if 'category_service' in request.path %} class="has-sub active" {% else %} class="has-sub" {% endif %}>
+                    <a class="js-arrow" href="#">
+                        <i class="fa fa-tasks"></i>Сервіси</a>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="{% url 'category_service' %}">Всі сервіси</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'add_category_service' %}">Додати сервіс</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li {% if 'patients' in request.path %} class="has-sub active" {% endif %}>
+                    <a href="{% url 'patients' %}"><i class="fa fa-users"></i>Пацієнти</a>
+                </li>
+
+
+                <li {% if 'receipt' in request.path %} class="has-sub active" {% endif %}>
+                    <a href="{% url 'receipt' %}"><i class="fa fa-ticket"></i>Формування чека</a>
+                </li>
+
+                <li {% if 'recipe' in request.path %} class="has-sub active" {% endif %}>
+                    <a href="{% url 'recipe' %}"><i class="fa fa-stethoscope"></i>Виписати рецепт</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+<!-- END MENU SIDEBAR-->

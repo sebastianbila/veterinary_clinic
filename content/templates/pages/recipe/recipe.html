@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="page-wrapper">
+        <!-- HEADER MOBILE-->
+        {% include 'partials/_header_mobile.html' %}
+        <!-- END HEADER MOBILE-->
+
+        <!-- MENU SIDEBAR-->
+        {% include 'partials/_dashboard_sidebar.html' %}
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+
+            <!-- HEADER DESKTOP-->
+            {% include 'partials/_header_desktop.html' %}
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <!-- Alerts -->
+                        {% include 'partials/_alerts.html' %}
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div id="recipe" class="card">
+                                    <div class="card-header">
+                                        <strong>Виписка рецепту</strong>
+                                    </div>
+                                    <div class="card-body card-block">
+
+                                        <div class="row form-group">
+                                            <div class="col-12">
+                                                <textarea name="textarea-input" id="recipe_content" rows="9"
+                                                          placeholder="Рецепт..." required class="form-control"></textarea>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                {% csrf_token %}
+
+                                                <button id="btnSaveRecipe"
+                                                        onclick="saveRecipe(event)" class="btn btn-primary float-right">
+                                                    Зберегти
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER-->
+
+    </div>
+{% endblock %}
+
